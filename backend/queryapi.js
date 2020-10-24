@@ -1,10 +1,12 @@
 var unirest = require("unirest");
 
-function getForRent(city, state_code, limit) {
+function getForSale(city, state_code, limit) {
 	return new Promise((resolve, reject) => { // make this asynchronous
-		var rq = unirest("GET", "https://realtor.p.rapidapi.com/properties/v2/list-for-rent");
+		var rq = unirest("GET", "https://realtor.p.rapidapi.com/properties/v2/list-for-sale");
 		rq.query({
-			"sort": "relevance",
+			"price_max":"50000", //arbitrary, change later or add a slider later. the idea is there should be a max tho because 
+						//were looking for affordable housing 
+			"sort": "price_low",
 			"city": city,
 			"state_code": state_code,
 			"limit": limit,
@@ -23,6 +25,9 @@ function getForRent(city, state_code, limit) {
 			}
 		});
 	});
+
+	var unirest = require("unirest");
+
 }
 
-exports.getForRent = getForRent;
+exports.getForSale = getForSale;

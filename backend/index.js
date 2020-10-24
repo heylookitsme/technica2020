@@ -1,15 +1,16 @@
-// to run this from the terminal, use `npm start` from the technica2020 folder
+// to run this from the terminal, use `npm start` from the technica2020 (base) folder
 
 const http = require('http');
 const fs = require('fs');
 require('./queryapi.js');
 const logger = require('./logger');
+const api = require('./queryapi.js');
 
 var log = new logger.Logger();
 
 http.createServer((req, res) => {
     if (req.url == "/"){
-        fs.readFile("../index.html", (err, data) => {
+        fs.readFile("./index.html", (err, data) => {
             if (err) {
                 log.error(`Could not read file ./index.html: ${err}`);
                 res.statusCode = 500;
@@ -24,11 +25,13 @@ http.createServer((req, res) => {
     }
 
     if (req.url == "/app") {
+    } else if (req.url == "/app") {
         res.end("the app finna be here");
-    }
-
-    if (req.url == "/about") {
+    } else if (req.url == "/about") {
         res.end("about");
+    } else { // if the requested url doesn't exist
+        res.statusCode = 404;
+        res.end("404 Not Found");
     }
 
-}).listen(5050, "0.0.0.0");
+}).listen(5050, "0.0.0.0"); // listen on port 5050

@@ -2,11 +2,14 @@
 
 const http = require('http');
 const fs = require('fs');
-require('./queryapi.js');
+const logger = require('./logger');
+const api = require('./queryapi.js');
+
+var log = new logger.Logger();
 
 http.createServer((req, res) => {
     if (req.url == "/"){
-        fs.readFile("../index.html", (err, data) => {
+        fs.readFile("./index.html", (err, data) => {
             if (err) {
                 log.error(`Could not read file ./index.html: ${err}`);
                 res.statusCode = 500;

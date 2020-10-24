@@ -1,4 +1,4 @@
-// to run this from the terminal, use `npm start` from the technica2020 folder
+// to run this from the terminal, use `npm start` from the technica2020 (base) folder
 
 const http = require('http');
 const fs = require('fs');

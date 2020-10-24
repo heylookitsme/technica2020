@@ -2,9 +2,19 @@
 
 const http = require('http');
 const fs = require('fs');
+require('./queryapi.js');
 
 http.createServer((req, res) => {
     if (req.url == "/") {
         res.end("Hello World!");
     }
-}).listen(5000, "0.0.0.0");
+
+    if (req.url == "/app") {
+        res.end("the app finna be here");
+    }
+
+    if (req.url == "/about") {
+        res.end("about");
+    }
+
+}).listen(5050, "0.0.0.0");

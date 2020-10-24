@@ -12,7 +12,7 @@ function getForRent(city, state_code, limit) {
 		});
 		rq.headers({
 			"x-rapidapi-host": "realtor.p.rapidapi.com",
-			"x-rapidapi-key": "b44a7a293fmshdf432f78a52387ap1c0c34jsn2dfe48411384",
+			"x-rapidapi-key": process.env[realtor_api_key],
 			"useQueryString": true
 		});
 		rq.end(function (rs) {

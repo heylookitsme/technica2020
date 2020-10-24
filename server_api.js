@@ -25,6 +25,9 @@ function getForRent(city, state, offset=0, numberOfResults=10, sort="relevance")
         }
     })
     .then((json) => {
-        result
+        result = json.results;
+    })
+    .catch((reason) => {
+        console.error(`Failed to get housing data: ${reason}`);
     })
 }

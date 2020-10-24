@@ -108,6 +108,8 @@
 		<p>Address: </p>
 		<p> Other information about the house: </p>
 	</div>
+
+	<select id="this-is-what-will-trigger-the-search" onchange="processHouseInfo()"></select>
 	<script>
 		function clickTab(evt, tabName) {
 			var i, tabcontent, tablinks;
@@ -122,6 +124,14 @@
 			document.getElementById(tabName).style.display = "block";
 			evt.currentTarget.className += " active";
 		}
+	
+		function processHouseInfo() {
+  			let serverResponse = getForRent(); // check the server_api.js file for instructions on how to use the getForRent() function
+  			/*
+  			Put code that updates the page here
+  			*/
+}
+
 	</script>
 </body>
 

@@ -2,9 +2,7 @@
 
 const http = require('http');
 const fs = require('fs');
-const logger = require('./logger');
-
-var log = new logger.Logger();
+require('./queryapi.js');
 
 http.createServer((req, res) => {
     if (req.url == "/"){
@@ -21,4 +19,12 @@ http.createServer((req, res) => {
         res.statusCode = 404;
         res.end("404 Not Found");
     }
+    if (req.url == "/app") {
+        res.end("the app finna be here");
+    }
+
+    if (req.url == "/about") {
+        res.end("about");
+    }
+
 }).listen(5050, "0.0.0.0");

@@ -3,13 +3,16 @@
 const http = require('http');
 const fs = require('fs');
 require('./queryapi.js');
+const url = require('url');
 const logger = require('./logger');
 const api = require('./queryapi.js');
 
 var log = new logger.Logger();
 
 http.createServer((req, res) => {
-   if (req.url == "/app") {
+   const queryObject = url.parse(req.url,true).query;
+   console.log(queryObject);
+   if (url.parse(req.url,true).pathname == "/app") {
 	fs.readFile("./app.html", (err, data) => {
             if (err) {
                 log.error(`cant find the app page: ${err}`);
@@ -20,7 +23,7 @@ http.createServer((req, res) => {
             }
         });
 
-    } else if (req.url == "/about") {
+    } else if (url.parse(req.url,true).pathname == "/about") {
 	fs.readFile("./about.html", (err, data) => {
             if (err) {
                 log.error(`cant find the about page: ${err}`);
@@ -30,7 +33,7 @@ http.createServer((req, res) => {
                 res.end(data);
             }
         });
-    }else if (req.url == "/"){
+    }else if (url.parse(req.url,true).pathname == "/"){
         fs.readFile("./index.html", (err, data) => {
             if (err) {
                 log.error(`Could not read file ./index.html: ${err}`);

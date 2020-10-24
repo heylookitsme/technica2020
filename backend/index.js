@@ -18,16 +18,12 @@ http.createServer((req, res) => {
                 res.end(data);
             }
         });
-    } else {
+    } else if (req.url == "/app") {
+        res.end("the app finna be here");
+    } else if (req.url == "/about") {
+        res.end("about");
+    } else { // if the requested url doesn't exist
         res.statusCode = 404;
         res.end("404 Not Found");
     }
-    if (req.url == "/app") {
-        res.end("the app finna be here");
-    }
-
-    if (req.url == "/about") {
-        res.end("about");
-    }
-
-}).listen(5050, "0.0.0.0");
+}).listen(5050, "0.0.0.0"); // listen on port 5050

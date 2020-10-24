@@ -1,3 +1,3 @@
-function getData(url) {
-
+function getForRent() {
+    fetch()
 }

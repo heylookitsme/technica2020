@@ -9,8 +9,8 @@ const api = require('./queryapi.js');
 var log = new logger.Logger();
 
 http.createServer((req, res) => {
-   if (req.url == "/app") {
-	fs.readFile("./app.html", (err, data) => {
+    if (req.url == "/app") {
+        fs.readFile("./app.html", (err, data) => {
             if (err) {
                 log.error(`cant find the app page: ${err}`);
                 res.statusCode = 500;
@@ -21,7 +21,7 @@ http.createServer((req, res) => {
         });
 
     } else if (req.url == "/about") {
-	fs.readFile("./about.html", (err, data) => {
+        fs.readFile("./about.html", (err, data) => {
             if (err) {
                 log.error(`cant find the about page: ${err}`);
                 res.statusCode = 500;
@@ -30,7 +30,7 @@ http.createServer((req, res) => {
                 res.end(data);
             }
         });
-    }else if (req.url == "/"){
+    } else if (req.url == "/") {
         fs.readFile("./index.html", (err, data) => {
             if (err) {
                 log.error(`Could not read file ./index.html: ${err}`);

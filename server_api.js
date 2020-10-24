@@ -15,5 +15,16 @@ Type array
 An array of result objects
 */
 function getForRent(city, state, offset=0, numberOfResults=10, sort="relevance") {
+    let results;
     fetch(`./get?api=realtor&numResults=${numberOfResults}&city=${city}&state=${state}&offset=${offset}`)
+    .then((response) => {
+        if (!(response.ok)) {
+            throw `Response on getForRent fetch call was ${response.status}`
+        } else {
+            return response.json();
+        }
+    })
+    .then((json) => {
+        result
+    })
 }

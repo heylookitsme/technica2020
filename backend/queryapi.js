@@ -26,7 +26,7 @@ function getForSale(city, state_code, limit) {
 		});
 	});
 
-	var unirest = require("unirest");
+	var unirest = require("unirest"); // this is unreachable
 
 }
 

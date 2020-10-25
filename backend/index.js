@@ -5,6 +5,7 @@ const fs = require('fs');
 require('./queryapi.js');
 const logger = require('./logger');
 const api = require('./queryapi.js');
+const { url } = require('inspector');
 
 var log = new logger.Logger();
 
@@ -40,6 +41,39 @@ http.createServer((req, res) => {
                 res.end(data);
             }
         });
+    } else if (req.url.split("?")[0] == "/get") {
+        let query_string = req.url.split("?")[1];
+        let query_fields = query_string.split("&"); // "api=realtor&numResults=${numberOfResults}&city=${city}&state=${state}&offset=${offset}&sort=${sort}"
+        let query_object = {}; // ["api=realtor", "numResults=${numberOfResults}", "city=${city}", "state=${state}", "offset=${offset}", "sort=${sort}"]
+        query_fields.forEach((key_pair) => {
+            query_object[key_pair.split("=")[0]] = value.split("=")[1];
+        });
+        if (query_object.hasOwnProperty("api") && query_object.hasOwnProperty("numResults") &&
+            query_object.hasOwnProperty("city") && query_object.hasOwnProperty("state") &&
+            query_object.hasOwnProperty("offset") && query_object.hasOwnProperty("sort")) {
+                api.getForSale(query_object.city, query_object.state, query_object.numResults)
+                .then((response) => {
+                    let cur_house; // this represents the current house in the results of the api call
+                    let current_house; // this will be inserted into res_to_client
+                    let res_to_client = {
+                        "results": []
+                    }
+                    let house_index = 0;
+                    for (let i=0; i<parseInt(query_object.numResults); i++) {
+                        current_house = {};
+                        cur_house = response.properties[i];
+                        if (cur_house.listing_status == "active" && cur_house.prop_status == "for_rent") {
+                            current_house.location = `${cur_house.address.line}, ${cur_house.address.city} ${cur_house.address.state}`;
+                            res_to_client.results.append(cur_house);
+                            house_index++;
+                        }
+                    }
+                    res.end(res_to_client);
+                })
+                .catch((reason) => {
+                    log.error(`Error when getting api results: ${reason}`);
+                })
+        }
     } else {
         res.statusCode = 404;
         res.end("404 Not Found");

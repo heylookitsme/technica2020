@@ -6,7 +6,6 @@ require('./queryapi.js');
 const url = require('url');
 const logger = require('./logger');
 const api = require('./queryapi.js');
-const { url } = require('inspector');
 
 var log = new logger.Logger();
 
@@ -71,10 +70,11 @@ http.createServer((req, res) => {
         if (query_object.hasOwnProperty("api") && query_object.hasOwnProperty("numResults") &&
             query_object.hasOwnProperty("city") && query_object.hasOwnProperty("state") &&
             query_object.hasOwnProperty("offset") && query_object.hasOwnProperty("sort")) {
-                console.log(1);
+                //console.log(1);
                 api.getForSale(query_object.city, query_object.state, query_object.numResults)
                 .then((response) => {
-                    console.log(2);
+                    response = JSON.parse(response);
+                    //console.log(2);
                     let cur_house; // this represents the current house in the results of the api call
                     let current_house; // this will be inserted into res_to_client
                     let house_list = []
@@ -87,17 +87,16 @@ http.createServer((req, res) => {
                             current_house.location = `${cur_house.address.line}, ${cur_house.address.city} ${cur_house.address.state}`;
                             current_house.pets = `Allowed:\nDogs: ${cur_house.client_display_flags.allows_dogs}, Cats: ${cur_house.client_display_flags.allows_cats}, Small Dogs: ${cur_house.client_display_flags.allows_dogs_small}, Large Dogs: ${cur_house.client_display_flags.allows_dogs_large}`;
                             current_house.other = `Year Built: ${cur_house.year_built}, Property Type: ${cur_house.prop_type}, Beds: ${cur_house.beds}`;
-                            house_list.push(cur_house);
+                            house_list.push(current_house);
                             //house_index++;
                         }
                     }
-                    res.end({
-                        "results": house_list
-                    });
+                    //console.log(JSON.stringify({"results": house_list}))
+                    res.end(JSON.stringify({"results": house_list}));
                 })
                 .catch((reason) => {
                     log.error(`Error when getting api results: ${reason}`);
-                })
+                });
         } else {
             log.debug(`Client request to /get had incorrect query string: ${query_fields}`);
             res.statusCode = 401;

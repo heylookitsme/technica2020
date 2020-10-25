@@ -23,7 +23,7 @@ function getForSale(city, state_code, limit) {
 				res.on("end", function () {
 					var body = Buffer.concat(chunks);
 					//console.log(body.toString());
-					resolve(JSON.parse(body.toString()));
+					resolve(body.toString());
 				});
 				res.on('error', (err) => {
 					reject(err);

@@ -69,11 +69,11 @@ function generateHouses(city, state, offset=0, numberOfResults=10, sort="relevan
                 otherInfo.setAttribute("id", `other-info-${i}`);
                 otherInfo.innerText = result[i].other;
 
-                houseList.insertBefore(houseDiv);
-                houseDiv.insertBefore(house);
-                houseDiv.insertBefore(pets);
-                houseDiv.insertBefore(address);
-                houseDiv.insertBefore(otherInfo);
+                houseList.appendChild(houseDiv);
+                houseDiv.appendChild(house);
+                houseDiv.appendChild(pets);
+                houseDiv.appendChild(address);
+                houseDiv.appendChild(otherInfo);
             }
             currentNumberOfHouses = numberOfResults;
         } else {
@@ -99,7 +99,7 @@ function deleteHouse(houseNumber) {
     for (let i=0; i<5; i++) {
         element = document.getElementById(ids[i]);
         if (element) { // if it exists, delete it
-            houseList.remove(element);
+            houseList.removeChild(element);
         }
     }
 }

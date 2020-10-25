@@ -126,10 +126,12 @@
 		}
 	
 		function processHouseInfo() {
-  			let serverResponse = getForRent(); // check the server_api.js file for instructions on how to use the getForRent() function
-  			/*
-  			Put code that updates the page here
-  			*/
+  			let serverResponse = getForRent(city, state); // check the server_api.js file for instructions on how to use the getForRent() function
+  			
+  			var list_of_houses = getForRent("Memphis", "TN");
+			list_of_houses.forEach(function(current_house) {
+  				document.getElementById("house-location").innerText = current_house.location;
+			});
 }
 
 	</script>

@@ -17,21 +17,21 @@ An array of result objects
 var currentNumberOfHouses = 0;
 
 function getForRent(city, state, offset=0, numberOfResults=10, sort="relevance") {
-    console.log("Getting houses");
+    //console.log("Getting houses");
     return new Promise((resolve) => {
-        console.log("Promise returned");
+        //console.log("Promise returned");
         fetch(`./get?api=realtor&numResults=${numberOfResults}&city=${city}&state=${state}&offset=${offset}&sort=${sort}`)
         .then((response) => {
             if (!(response.ok)) {
                 console.log(error);
                 throw `Response on getForRent fetch call was ${response.status}`;
             } else {
-                console.log("Success");
+                //console.log("Success");
                 return response.json();
             }
         })
         .then((json) => {
-            console.log(json);
+            //console.log(json);
             resolve(json.results);
         })
         .catch((reason) => {
@@ -45,11 +45,12 @@ function generateHouses(city, state, offset=0, numberOfResults=10, sort="relevan
     deleteAllHouses();
     let house, price, address, otherInfo;
     let houseList = document.getElementById("house-list");
+    console.log(houseList);
     getForRent(city, state, offset, numberOfResults, sort)
     .then((result) => {
         if (result != []){
             for (let i=0; i<20; i++) {
-                console.log(i);
+                //console.log(i);
                 houseDiv = document.createElement("div");
                 houseDiv.setAttribute("id", `house-div-${i}`)
 
@@ -70,10 +71,10 @@ function generateHouses(city, state, offset=0, numberOfResults=10, sort="relevan
                 otherInfo.innerText = result[i].other;
 
                 houseList.appendChild(houseDiv);
-                houseDiv.appendChild(house);
-                houseDiv.appendChild(pets);
-                houseDiv.appendChild(address);
-                houseDiv.appendChild(otherInfo);
+                houseList.appendChild(house);
+                houseList.appendChild(pets);
+                houseList.appendChild(address);
+                houseList.appendChild(otherInfo);
             }
             currentNumberOfHouses = numberOfResults;
         } else {

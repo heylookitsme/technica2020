@@ -8,24 +8,24 @@
 </head>
 
 <body onload="generateHouses('Memphis', 'TN', 0, 10, 'relevance')">
-	<div class="mainHeader">
-		<h1>House Thing</h1>
-		<p>Our mission:
-			<br>To help low income families access the resources they need to find a good home.</p>
-	</div>
-
 	<div class="tab">
-		<button class="tablinks" onclick="clickTab(event, 'app')">app</button>
-		<button class="tablinks" onclick="clickTab(event, 'home')">home</button>
-		<button class="tablinks" onclick="clickTab(event, 'about')">about</button>
+		<button><a href="/">home</a></button>
+		<button><a href="/app">app</a></button>
+		<button><a href="/about"> about</a></button>
+	</div>
+<div class="mainHeader">
+		<h1>House Thing</h1>
+		<p>App:
+			<br>Hypothetically you were to enter in fields here and it wereto compose a query string</p>
 	</div>
 
 	<!--
-		<div id="app" class="tabcontent">
-			<h3>This is an app</h3>
-			<p>here is the app</p>
-		</div>
-		-->
+	<div class="tab">
+		<button class="tablinks" onclick="clicktab(event, 'app')">app</button>
+		<button class="tablinks" onclick="clicktab(event, 'home')">home</button>
+		<button class="tablinks" onclick="clicktab(event, 'about')">about</button>
+	</div>
+	-->
 
 	<!--
 	<div id="home" class="tabcontent">
@@ -38,14 +38,12 @@
 		</form>
 	</div>
 	-->
+	
+	<button onclick="processHouseInfo()">jdhfkjhdf</button>
+	<div id="house-location">monkas?</div>
 
+	<!--
 	<div id="house-list"></div>
-	<!--
-		<div id="navigation" class="tabcontent">
-			<h3>This is navigation</h3>
-		</div>
-		-->
-	<!--
 		<div class="house">
 			<h2>house 1</h2>
 			<p>Price: </p>
@@ -55,6 +53,9 @@
 		-->
 
 	<script>
+/* deprecated? usually i would be good with a script to autogenerate a nav/consisten header 
+ * across all pages in a site but im sorry to say this uh? but delete it if you feel 
+ * you want it */
 		function clickTab(evt, tabName) {
 			/*
 			var i, tabcontent, tablinks;
@@ -74,17 +75,19 @@
 			} else if (tabName == "home") {
 				window.location.href = "./";
 			}
-		}
+		} 
 
 		function processHouseInfo() {
 			let serverResponse = getForRent(city, state); // check the server_api.js file for instructions on how to use the getForRent() function
-
 			var list_of_houses = getForRent("Memphis", "TN");
 			list_of_houses.forEach(function (current_house) {
 				document.getElementById("house-location").innerText = current_house.location;
 			});
+
 		}
 	</script>
+
+
 </body>
 
 </html>

@@ -3,6 +3,7 @@
 const http = require('http');
 const fs = require('fs');
 require('./queryapi.js');
+const url = require('url');
 const logger = require('./logger');
 const api = require('./queryapi.js');
 const { url } = require('inspector');

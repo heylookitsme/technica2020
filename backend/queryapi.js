@@ -14,19 +14,21 @@ function getForSale(city, state_code, limit) {
 				"useQueryString": true
 			}
 		};
-		var req = http.request(options, function (res) {
-			var chunks = [];
-			res.on("data", function (chunk) {
-				chunks.push(chunk);
+		var req = http.request(options, (res) => {
+				//console.log("1.2");
+				var chunks = [];
+				res.on("data", function (chunk) {
+					chunks.push(chunk);
+				});
+				res.on("end", function () {
+					var body = Buffer.concat(chunks);
+					//console.log(body.toString());
+					resolve(JSON.parse(body.toString()));
+				});
+				res.on('error', (err) => {
+					reject(err);
+				});
 			});
-			res.on("end", function () {
-				var body = Buffer.concat(chunks);
-				resolve(body.toJSON());
-			});
-			res.on('error', (err) => {
-				reject(err);
-			});
-		});
 		req.end();
 		/*
 		console.log(0.1);

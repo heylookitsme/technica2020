@@ -76,10 +76,8 @@ http.createServer((req, res) => {
                     console.log(2);
                     let cur_house; // this represents the current house in the results of the api call
                     let current_house; // this will be inserted into res_to_client
-                    let res_to_client = {
-                        "results": []
-                    }
-                    let house_index = 0;
+                    let house_list = []
+                    //let house_index = 0;
                     for (let i=0; i<parseInt(query_object.numResults); i++) {
                         current_house = {};
                         cur_house = response.properties[i];
@@ -88,11 +86,13 @@ http.createServer((req, res) => {
                             current_house.location = `${cur_house.address.line}, ${cur_house.address.city} ${cur_house.address.state}`;
                             current_house.pets = `Allowed:\nDogs: ${cur_house.client_display_flags.allows_dogs}, Cats: ${cur_house.client_display_flags.allows_cats}, Small Dogs: ${cur_house.client_display_flags.allows_dogs_small}, Large Dogs: ${cur_house.client_display_flags.allows_dogs_large}`;
                             current_house.other = `Year Built: ${cur_house.year_built}, Property Type: ${cur_house.prop_type}, Beds: ${cur_house.beds}`;
-                            res_to_client.results.append(cur_house);
-                            house_index++;
+                            house_list.push(cur_house);
+                            //house_index++;
                         }
                     }
-                    res.end(res_to_client);
+                    res.end({
+                        "results": house_list
+                    });
                 })
                 .catch((reason) => {
                     log.error(`Error when getting api results: ${reason}`);

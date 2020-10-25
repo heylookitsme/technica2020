@@ -109,7 +109,8 @@
 		<p> Other information about the house: </p>
 	</div>
 
-	<select id="this-is-what-will-trigger-the-search" onchange="processHouseInfo()"></select>
+	<select id="this-is-what-will-trigger-the-search" onchange="processHouseInfo()">
+	</select>
 	<script>
 		function clickTab(evt, tabName) {
 			var i, tabcontent, tablinks;
@@ -126,9 +127,13 @@
 		}
 	
 		function processHouseInfo() {
-  			let serverResponse = getForRent(city, state); // check the server_api.js file for instructions on how to use the getForRent() function
-  			
-  			var list_of_houses = getForRent("Memphis", "TN");
+			var zp = document.getElementById("zp").value;
+			var city = document.getElementById("city").value;
+			var state = document.getElementById("state").value;
+			var maxp = document.getElementById("maxp").value;
+			
+  			let serverResponse = getForRent(city,state); // check the server_api.js file for instructions on how to use the getForRent() function
+  			var list_of_houses = getForRent(city, state);
 			list_of_houses.forEach(function(current_house) {
   				document.getElementById("house-location").innerText = current_house.location;
 			});
